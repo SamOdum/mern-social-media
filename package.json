@@ -12,10 +12,8 @@
     "url": "git+https://github.com/SamOdum/mern-social-media.git"
   },
   "keywords": [
-    "Social",
-    "media",
-    "MERN",
-    "stack"
+    "Social media",
+    "MERN stack"
   ],
   "author": "Sam Odum",
   "license": "MIT",

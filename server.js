@@ -1,17 +1,18 @@
 const express = require("express");
-// const mongoose = require("mongoose");
 const connectDB = require("./config/db");
 
 const App = express();
+
+// Connecct to the database
 connectDB();
-// const db =
-//   "mongodb+srv://Sam123:Sam123@mernsocialmedia-dpvgj.mongodb.net/test?retryWrites=true&w=majority";
-// mongoose
-//   .connect(db, { useNewUrlParser: true })
-//   .then(() => console.log("MongoDB connected..."))
-//   .catch(err => console.log(err));
 
 App.get("/", (req, res) => res.send("API is running"));
+
+// Define routes
+App.use("/api/auth", require("./routes/api/auth"));
+App.use("/api/posts", require("./routes/api/posts"));
+App.use("/api/profile", require("./routes/api/profile"));
+App.use("/api/users", require("./routes/api/users"));
 
 const PORT = process.env.PORT || 5000;
 
