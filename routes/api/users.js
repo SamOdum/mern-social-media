@@ -1,4 +1,5 @@
 const express = require("express");
+const gravatar = require("gravatar");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 
@@ -18,7 +19,7 @@ router.post(
       min: 6
     })
   ],
-  (req, res) => {
+  async (req, res) => {
     console.log(req.body);
     const error = validationResult(req);
     if (!error.isEmpty()) {
@@ -27,14 +28,23 @@ router.post(
 
     const { name, email, password } = req.body;
 
-    // TO DOs
+    try {
+      // TO DOs
 
-    // **Confirm that user exists
-    // **Fetch user's image
-    // **Encrypt user's password
-    // **Return jsonwebtoken
+      // **Confirm that user exists
+      const user = User.findOne({ email });
+      if (user) {
+        res.status(400).send({ errors: [{ msg: "User already exists!" }] });
+      }
+      // **Fetch user's gravatar image
+      // **Encrypt user's password
+      // **Return jsonwebtoken
 
-    res.send("User route");
+      res.send("User route");
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Server error");
+    }
   }
 );
 
