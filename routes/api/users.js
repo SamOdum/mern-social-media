@@ -69,7 +69,7 @@ router.post(
       jwt.sign(
         payload,
         config.get("jwtToken"),
-        { expiresIn: 3600000 },
+        { expiresIn: 3600000 }, //**Change to 3600 before deployment */
         (err, token) => {
           if (err) {
             throw err;
