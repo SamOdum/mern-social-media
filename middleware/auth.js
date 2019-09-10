@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("config");
 
-module.exports = (res, req, cb) => {
+module.exports = function(res, req, cb) {
     //Get token from request header
     const token = req.header("x-auth-token");
 
@@ -10,10 +10,10 @@ module.exports = (res, req, cb) => {
     }
 
     try {
-        const decoded = jwt.verify( token, config.get(jwtToken) );
+        const decoded = jwt.verify( token, config.get("jwtToken") );
         req.user = decoded.user;
         cb();
     } catch(error) {
-        res.status(401).json({ msg: "Token is invalid."});
+        res.status(401).json({ msg: "Token is invalid." });
     }
 }
