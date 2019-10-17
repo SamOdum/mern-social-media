@@ -13,6 +13,8 @@ const User = require("../../models/User");
 // Access   Public
 router.post(
   "/",
+
+  // use express-validator to ensure fields are filled properly
   [
     check("name", "Name is required")
       .not()
@@ -32,7 +34,7 @@ router.post(
     const { name, email, password } = req.body;
 
     try {
-      // **Confirm that user exists
+      // **Confirm that user does not already exist
       let user = await User.findOne({ email });
       if (user) {
         return res
@@ -41,9 +43,9 @@ router.post(
       }
       // **Fetch user's gravatar image
       const avatar = await gravatar.url(email, {
-        s: "200",
-        r: "pg",
-        d: "mm"
+        s: "200", // defaut size
+        r: "pg",  // rating
+        d: "mm"   // default
       });
 
       user = new User({
@@ -69,7 +71,7 @@ router.post(
       jwt.sign(
         payload,
         config.get("jwtToken"),
-        { expiresIn: 3600000 }, //**Change to 3600 before deployment */
+        { expiresIn: 3600000 }, //**Change to 3600 before deployment ******************************/
         (err, token) => {
           if (err) {
             throw err;
