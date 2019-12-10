@@ -29,6 +29,8 @@ router.get("/me", auth, async (req, res) => {
 // Route    POST api/profile
 // Desc     Create or update user profile
 // Access   Private
+
+// This part should be reviewed
 router.post(
   "/",
   [
